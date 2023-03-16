@@ -5,7 +5,6 @@ using EatZ.Infra.CrossCutting.Constants;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -42,13 +41,6 @@ namespace EatZ.API.Controllers
         {
             var result = await _mediator.Send(command);
             return Ok(result);
-        }
-
-        [HttpGet()]
-        [Authorize(Roles = Roles.Company)]
-        public void Test()
-        {
-            // Method intentionally left empty.
         }
     }
 }

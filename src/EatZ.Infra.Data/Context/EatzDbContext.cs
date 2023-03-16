@@ -9,6 +9,8 @@ namespace EatZ.Infra.Data.Context
     {
         private readonly IConfiguration _configuration;
 
+        public DbSet<Store> Stores { get; set; }
+
         public EatzDbContext(DbContextOptions<EatzDbContext> options, IConfiguration configuration)
             : base(options)
         {
@@ -18,6 +20,7 @@ namespace EatZ.Infra.Data.Context
         {
             optionsBuilder.UseNpgsql(_configuration.GetConnectionString("Default"));
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            optionsBuilder.LogTo(Console.WriteLine);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

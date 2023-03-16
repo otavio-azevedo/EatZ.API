@@ -25,6 +25,9 @@ namespace EatZ.API
             // DbContext
             builder.Services.AddDbContext<EatzDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("Default")));
 
+            // HttpContextAccessor
+            builder.Services.AddHttpContextAccessor();
+
             // Identity
             builder.Services.AddIdentityServices();
 
@@ -33,6 +36,9 @@ namespace EatZ.API
 
             // Domain Services
             builder.Services.AddDomainServices();
+
+            // Repositories
+            builder.Services.AddRepositories();
 
             // IoW
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -55,6 +61,8 @@ namespace EatZ.API
 
             // Swagger
             builder.Services.AddSwaggerServices();
+
+            builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
             RunApplication(builder);
         }

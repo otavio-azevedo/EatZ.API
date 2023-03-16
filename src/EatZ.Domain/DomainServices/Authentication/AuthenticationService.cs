@@ -10,7 +10,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using EatZ.Infra.CrossCutting.Constants;
 using EatZ.Domain.Entities;
-using EatZ.Infra.CrossCutting.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace EatZ.Domain.DomainServices.Authentication
 {
@@ -19,12 +19,14 @@ namespace EatZ.Domain.DomainServices.Authentication
         private readonly JwtSettings _jwtSettings;
         private readonly UserManager<User> _userManager;
         private readonly INotificationContext _notificationContext;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public AuthenticationService(IOptions<JwtSettings> jwtSettings, UserManager<User> userManager, INotificationContext notificationContext)
+        public AuthenticationService(IOptions<JwtSettings> jwtSettings, UserManager<User> userManager, INotificationContext notificationContext, IHttpContextAccessor httpContext)
         {
             _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
             _notificationContext = notificationContext;
+            _httpContext = httpContext;
         }
 
         public async Task CreateUserAsync(string name, string email, string password)
@@ -66,6 +68,18 @@ namespace EatZ.Domain.DomainServices.Authentication
             }
         }
 
+        public async Task<User> GetUserByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == default)
+            {
+                _notificationContext.AddNotification("Usuário não encontrado.");
+            }
+
+            return user;
+        }
+
         public async Task<User> GetUserByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -88,7 +102,12 @@ namespace EatZ.Domain.DomainServices.Authentication
             }
         }
 
-        public async  Task<AuthenticationTokenDto> GetBearerTokenAsync(User user)
+        public string GetUserIdFromToken()
+        {
+            return _httpContext.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.UserId)?.Value;
+        }
+
+        public async Task<AuthenticationTokenDto> GetBearerTokenAsync(User user)
         {
             var userRole = (await _userManager.GetRolesAsync(user)).First();
 
@@ -121,6 +140,7 @@ namespace EatZ.Domain.DomainServices.Authentication
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim(Claims.UserId, user.Id),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
            };

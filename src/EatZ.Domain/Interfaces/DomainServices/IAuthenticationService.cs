@@ -15,7 +15,11 @@ namespace EatZ.Domain.Interfaces.DomainServices
         Task HasUserWithEmailAsync(string email);
 
         Task<User> GetUserByEmailAsync(string email);
+        
+        Task<User> GetUserByIdAsync(string id);
 
         Task<AuthenticationTokenDto> GetBearerTokenAsync(User user);
+
+        string GetUserIdFromToken();
     }
 }
