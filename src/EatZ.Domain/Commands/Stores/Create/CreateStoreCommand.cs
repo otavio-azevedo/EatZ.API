@@ -1,10 +1,11 @@
-﻿using MediatR;
+﻿using EatZ.Domain.DTOs;
+using MediatR;
 
 namespace EatZ.Domain.Commands.Stores.Create
 {
     public class CreateStoreCommand : IRequest<string>
     {
-        public CreateStoreCommand(string name, string documentNumber, string phone, string zipCode, string country, string neighborhood, string complement, string state, string city, string street, int streetNumber)
+        public CreateStoreCommand(string name, string documentNumber, string phone, string zipCode, string country, string neighborhood, string complement, string state, string city, string street, int streetNumber, IEnumerable<StoreImageDto> images, string description)
         {
             Name = name;
             DocumentNumber = documentNumber;
@@ -17,6 +18,8 @@ namespace EatZ.Domain.Commands.Stores.Create
             City = city;
             Street = street;
             StreetNumber = streetNumber;
+            Images = images;
+            Description = description;
         }
 
         public string Name { get; private set; }
@@ -30,7 +33,7 @@ namespace EatZ.Domain.Commands.Stores.Create
         public string Country { get; private set; }
 
         public string Neighborhood { get; private set; }
-        
+
         public string Complement { get; private set; }
 
         public string State { get; private set; }
@@ -40,5 +43,9 @@ namespace EatZ.Domain.Commands.Stores.Create
         public string Street { get; private set; }
 
         public int StreetNumber { get; private set; }
+
+        public string Description { get; private set; }
+
+        public IEnumerable<StoreImageDto> Images { get; private set; }
     }
 }

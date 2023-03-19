@@ -54,7 +54,11 @@ namespace EatZ.API
             {
                 options.Filters.Add(typeof(NotificationFilter));
             })
-           .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+           .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;//https://makolyte.com/system-text-json-jsonexception-a-possible-object-cycle-was-detected-which-is-not-supported/
+            });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

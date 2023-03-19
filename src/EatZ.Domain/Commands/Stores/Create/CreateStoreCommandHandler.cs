@@ -30,7 +30,7 @@ namespace EatZ.Domain.Commands.Stores.Create
             if (_notificationContext.HasNotifications)
                 return default;
 
-            Store store = new(
+            var store = new Store(
                 request.Name,
                 request.DocumentNumber,
                 request.Phone,
@@ -41,9 +41,13 @@ namespace EatZ.Domain.Commands.Stores.Create
                 request.Neighborhood,
                 request.Street,
                 request.StreetNumber,
-                request.Complement);
+                request.Complement,
+                request.Description);
 
             store.SetAdmin(user);
+
+            var storeImages = request.Images.Select(x => new StoreImages(store.Id, x.Title, x.Content)).ToList();
+            store.SetImages(storeImages);
 
             await _storeRepository.InsertStoreAsync(store);
 

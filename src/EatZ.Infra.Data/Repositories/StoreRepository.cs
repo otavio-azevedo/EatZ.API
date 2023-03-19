@@ -22,7 +22,9 @@ namespace EatZ.Infra.Data.Repositories
 
         public async Task<Store> GetStoreByIdAsync(string id)
         {
-            return await _context.Stores.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Stores
+                                 .Include(x => x.Images)
+                                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task InsertStoreAsync(Store store)
