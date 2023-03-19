@@ -11,6 +11,14 @@ namespace EatZ.Infra.Data.Context
 
         public DbSet<Store> Stores { get; set; }
 
+        public DbSet<StoreImages> StoreImages { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        public DbSet<State> States { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
         public EatzDbContext(DbContextOptions<EatzDbContext> options, IConfiguration configuration)
             : base(options)
         {
@@ -18,7 +26,8 @@ namespace EatZ.Infra.Data.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("Default"));
+            optionsBuilder.UseNpgsql(connectionString: _configuration.GetConnectionString("Default"));
+
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             optionsBuilder.LogTo(Console.WriteLine);
         }
