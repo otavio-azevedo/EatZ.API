@@ -4,21 +4,21 @@ namespace EatZ.Domain.Entities
 {
     public class Store : Entity<string>
     {
-        public Store(string name, string documentNumber, string phone, string zipCode, string country, string state, string city, string neighborhood, string street, int streetNumber, string complement, string description)
+        public Store(string name, string documentNumber, string phone, string zipCode, long cityId, string neighborhood, string street, int streetNumber, string complement, string description, double latitude, double longitude)
         {
             Name = name;
             DocumentNumber = documentNumber;
             Phone = phone;
             ZipCode = zipCode;
-            Country = country;
-            State = state;
-            City = city;
+            CityId = cityId;
             Neighborhood = neighborhood;
             Street = street;
             StreetNumber = streetNumber;
             Complement = complement;
             CreatedAt = DateTime.Now;
             Description = description;
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
         public string Name { get; private set; }
@@ -29,11 +29,9 @@ namespace EatZ.Domain.Entities
 
         public string ZipCode { get; private set; }
 
-        public string Country { get; private set; }
-
-        public string State { get; private set; }
-
-        public string City { get; private set; }
+        public long CityId { get; private set; }
+        
+        public City City { get; private set; }
 
         public string Neighborhood { get; private set; }
 
@@ -52,6 +50,10 @@ namespace EatZ.Domain.Entities
         public string Description { get; private set; }
 
         public ICollection<StoreImages> Images { get; private set; }
+
+        public double Latitude { get; private set; }
+
+        public double Longitude { get; private set; }
 
         public void SetAdmin(User admin)
         {

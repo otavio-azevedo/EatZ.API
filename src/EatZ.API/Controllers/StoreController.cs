@@ -10,7 +10,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Policy;
 
 namespace EatZ.API.Controllers
 {
@@ -58,7 +57,7 @@ namespace EatZ.API.Controllers
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
-        public async Task<IActionResult> SearchStoresAsync([FromQuery] SearchStoresCommand command)
+        public async Task<IActionResult> SearchStoresByCityAsync([FromQuery] SearchStoresByCityCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(StoresMappers.Map(result));

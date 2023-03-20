@@ -14,9 +14,6 @@ namespace EatZ.Infra.Data.Context.Mappers
             builder.Property(x => x.DocumentNumber).HasColumnName("DOCUMENT_NUMBER").HasMaxLength(20).IsRequired();
             builder.Property(x => x.Phone).HasColumnName("PHONE").HasMaxLength(15).IsRequired();
             builder.Property(x => x.ZipCode).HasColumnName("ZIP_CODE").HasMaxLength(10).IsRequired();
-            builder.Property(x => x.Country).HasColumnName("COUNTRY").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.State).HasColumnName("STATE").HasMaxLength(50).IsRequired();
-            builder.Property(x => x.City).HasColumnName("CITY").HasMaxLength(50).IsRequired();
             builder.Property(x => x.Street).HasColumnName("STREET").HasMaxLength(50).IsRequired();
             builder.Property(x => x.StreetNumber).HasColumnName("STREET_NUMBER").IsRequired();
             builder.Property(x => x.Neighborhood).HasColumnName("NEIGHBORHOOD").HasMaxLength(50).IsRequired();
@@ -29,7 +26,15 @@ namespace EatZ.Infra.Data.Context.Mappers
                    .HasForeignKey<Store>(v => v.AdminId)
                    .HasConstraintName("FK_USERS_STORE_ID")
                    .OnDelete(DeleteBehavior.NoAction);
+            builder.Property(x => x.CityId).HasColumnName("CITY_ID").IsRequired();
+            builder.HasOne(x => x.City)
+                   .WithMany()
+                   .HasForeignKey(v => v.CityId)
+                   .HasConstraintName("FK_CITIES_STORE_ID")
+                   .OnDelete(DeleteBehavior.NoAction);
             
+            builder.Property(x => x.Latitude).HasColumnName("LATITUDE").IsRequired();
+            builder.Property(x => x.Longitude).HasColumnName("LONGITUDE").IsRequired();
         }
     }
 }

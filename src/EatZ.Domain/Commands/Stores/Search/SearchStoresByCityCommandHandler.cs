@@ -5,20 +5,20 @@ using MediatR;
 
 namespace EatZ.Domain.Commands.Stores.Search
 {
-    public class SearchStoresCommandHandler : IRequestHandler<SearchStoresCommand, IEnumerable<Store>>
+    public class SearchStoresByCityCommandHandler : IRequestHandler<SearchStoresByCityCommand, IEnumerable<Store>>
     {
         private readonly IStoreRepository _storeRepository;
         private readonly INotificationContext _notificationContext;
 
-        public SearchStoresCommandHandler(IStoreRepository storeRepository, INotificationContext notificationContext)
+        public SearchStoresByCityCommandHandler(IStoreRepository storeRepository, INotificationContext notificationContext)
         {
             _storeRepository = storeRepository;
             _notificationContext = notificationContext;
         }
 
-        public async Task<IEnumerable<Store>> Handle(SearchStoresCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Store>> Handle(SearchStoresByCityCommand request, CancellationToken cancellationToken)
         {
-            var stores = await _storeRepository.SearchStoresAsync(request.Country, request.State, request.City, request.Neighborhood, request.Street);
+            var stores = await _storeRepository.SearchStoresByCityAsync(request.CityId);
 
             if (stores == default)
             {

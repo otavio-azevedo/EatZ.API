@@ -2,8 +2,9 @@
 {
     public class SearchCityResponse
     {
-        public SearchCityResponse(string cityName, double latitude, double longitude, string stateName, string countryName)
+        public SearchCityResponse(long cityId, string cityName, double latitude, double longitude, string stateName, string countryName)
         {
+            CityId = cityId;
             CityName = cityName;
             Latitude = latitude;
             Longitude = longitude;
@@ -11,6 +12,8 @@
             CountryName = countryName;
         }
 
+        public long CityId { get; set; }
+        
         public string CityName { get; set; }
 
         public double Latitude { get; set; }

@@ -1,6 +1,5 @@
 ﻿using EatZ.Domain.Entities;
 using EatZ.Domain.Interfaces.Repositories;
-using EatZ.Infra.CrossCutting.Extensions;
 using EatZ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,14 +31,11 @@ namespace EatZ.Infra.Data.Repositories
             await _context.Stores.AddAsync(store);
         }
 
-        public async Task<IEnumerable<Store>> SearchStoresAsync(string country, string state, string city, string neighborhood, string street)
+        public async Task<IEnumerable<Store>> SearchStoresByCityAsync(long cityId)
         {
             return await _context.Stores
-                           .WhereIf(x => x.Country.Contains(country), !string.IsNullOrEmpty(country))
-                           .WhereIf(x => x.Country.Contains(state), !string.IsNullOrEmpty(state))
-                           .WhereIf(x => x.Country.Contains(city), !string.IsNullOrEmpty(city))
-                           .WhereIf(x => x.Country.Contains(neighborhood), !string.IsNullOrEmpty(neighborhood))
-                           .WhereIf(x => x.Country.Contains(street), !string.IsNullOrEmpty(street))
+                           .AsNoTracking()
+                           .Where(x => x.CityId == cityId)
                            .ToListAsync();
         }
     }

@@ -6,24 +6,16 @@ namespace EatZ.API.Models.Stores
 {
     public static class StoresMappers
     {
-        public static IEnumerable<SearchStoresResponse> Map(IEnumerable<Store> stores)
+        public static IEnumerable<SearchStoresByCityResponse> Map(IEnumerable<Store> stores)
         {
             if (stores.IsNullOrEmpty())
-                return Enumerable.Empty<SearchStoresResponse>();
+                return Enumerable.Empty<SearchStoresByCityResponse>();
 
-            return stores.Select(s => new SearchStoresResponse(
+            return stores.Select(s => new SearchStoresByCityResponse(
                 s.Id,
                 s.Name,
-                s.Phone,
-                s.ZipCode,
-                s.Country,
-                s.State,
-                s.City,
-                s.Neighborhood,
-                s.Street,
-                s.StreetNumber,
-                s.Complement
-                ));
+                s.Latitude,
+                s.Longitude));
         }
     }
 }

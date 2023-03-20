@@ -6,6 +6,6 @@ namespace EatZ.Domain.Commands.Location.SearchCities
 {
     public class SearchCitiesCommand : OffsetPagedRequest, IRequest<IEnumerable<City>>
     {
-        public string CityName { get; set; }
+        public string City { get; set; }
     }
 }

@@ -10,6 +10,6 @@ namespace EatZ.Domain.Interfaces.Repositories
 
         void DeleteStore(Store store);
         
-        Task<IEnumerable<Store>> SearchStoresAsync(string country, string state, string city, string neighborhood, string street);
+        Task<IEnumerable<Store>> SearchStoresByCityAsync(long cityId);
     }
 }

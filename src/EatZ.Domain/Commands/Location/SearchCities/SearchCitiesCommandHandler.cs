@@ -18,7 +18,7 @@ namespace EatZ.Domain.Commands.Location.SearchCities
 
         public async Task<IEnumerable<City>> Handle(SearchCitiesCommand request, CancellationToken cancellationToken)
         {
-            IEnumerable<City> result = await _cityRepository.SearchCitiesByNameAsync(request.CityName, request.Offset, request.Limit);
+            IEnumerable<City> result = await _cityRepository.SearchCitiesByNameAsync(request.City, request.Offset, request.Limit);
 
             if (result == default)
             {

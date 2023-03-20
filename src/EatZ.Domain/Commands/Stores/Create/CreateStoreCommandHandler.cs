@@ -30,19 +30,23 @@ namespace EatZ.Domain.Commands.Stores.Create
             if (_notificationContext.HasNotifications)
                 return default;
 
+            //TODO: obter coordenadas de alguma API
+            double latitude = -29.682488;
+            double longitude = -51.1271051;
+
             var store = new Store(
                 request.Name,
                 request.DocumentNumber,
                 request.Phone,
                 request.ZipCode,
-                request.Country,
-                request.State,
-                request.City,
+                request.CityId,
                 request.Neighborhood,
                 request.Street,
                 request.StreetNumber,
                 request.Complement,
-                request.Description);
+                request.Description,
+                latitude,
+                longitude);
 
             store.SetAdmin(user);
 
