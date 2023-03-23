@@ -28,6 +28,9 @@ namespace EatZ.API
             // HttpContextAccessor
             builder.Services.AddHttpContextAccessor();
 
+            // External Services
+            builder.Services.AddExternalServices(configuration);
+
             // Identity
             builder.Services.AddIdentityServices();
 

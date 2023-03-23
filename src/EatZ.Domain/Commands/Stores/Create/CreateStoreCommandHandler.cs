@@ -1,5 +1,6 @@
 ﻿using EatZ.Domain.Entities;
 using EatZ.Domain.Interfaces.DomainServices;
+using EatZ.Domain.Interfaces.ExternalServices;
 using EatZ.Domain.Interfaces.Repositories;
 using EatZ.Domain.Interfaces.Utility;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
@@ -11,13 +12,15 @@ namespace EatZ.Domain.Commands.Stores.Create
     {
         private readonly IStoreRepository _storeRepository;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IGoogleGeocodingApi _googleGeocodingApi;
         private readonly INotificationContext _notificationContext;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateStoreCommandHandler(IStoreRepository storeRepository, IAuthenticationService authenticationService, INotificationContext notificationContext, IUnitOfWork unitOfWork)
+        public CreateStoreCommandHandler(IStoreRepository storeRepository, IAuthenticationService authenticationService, IGoogleGeocodingApi googleGeocodingApi, INotificationContext notificationContext, IUnitOfWork unitOfWork)
         {
             _storeRepository = storeRepository;
             _authenticationService = authenticationService;
+            _googleGeocodingApi = googleGeocodingApi;
             _notificationContext = notificationContext;
             _unitOfWork = unitOfWork;
         }
@@ -30,9 +33,7 @@ namespace EatZ.Domain.Commands.Stores.Create
             if (_notificationContext.HasNotifications)
                 return default;
 
-            //TODO: obter coordenadas de alguma API
-            double latitude = -29.682488;
-            double longitude = -51.1271051;
+            var coordinates = await _googleGeocodingApi.GetCoordinatesAsync(request.ZipCode, request.Neighborhood, request.Street, request.StreetNumber);
 
             var store = new Store(
                 request.Name,
@@ -45,8 +46,8 @@ namespace EatZ.Domain.Commands.Stores.Create
                 request.StreetNumber,
                 request.Complement,
                 request.Description,
-                latitude,
-                longitude);
+                coordinates.Latitude,
+                coordinates.Longitude);
 
             store.SetAdmin(user);
 
