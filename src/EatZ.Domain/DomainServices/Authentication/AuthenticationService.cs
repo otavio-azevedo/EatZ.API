@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using EatZ.Infra.CrossCutting.Constants;
 using EatZ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using System.Security.Cryptography;
 
 namespace EatZ.Domain.DomainServices.Authentication
 {

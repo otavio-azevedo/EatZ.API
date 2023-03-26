@@ -1,7 +1,7 @@
 ﻿using EatZ.Domain.Commands.Authentication.Login;
+using EatZ.Domain.Commands.Authentication.Refresh;
 using EatZ.Domain.Commands.Authentication.Register;
 using EatZ.Domain.DTOs;
-using EatZ.Infra.CrossCutting.Constants;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +40,16 @@ namespace EatZ.API.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
         {
             var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpPost("refresh")]
+        [ProducesResponseType(typeof(AuthenticationTokenDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
+        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> RefreshAsync()
+        {
+            var result = await _mediator.Send(new RefreshTokenCommand());
             return Ok(result);
         }
     }
