@@ -1,16 +1,24 @@
 version: "3.8"
+
+networks:
+  dev:
+    driver: bridge
 services:
-  #api:
-  #  build:
-  #    context: .
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - "8080:80"
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #  depends_on:
-  #    - postgres
-  postgres:
+  api:
+    container_name: eatz.api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=Host=db_postgres;Database=eatz;Username=postgres;Password=postgres;timeout=1024;commandtimeout=1024;pooling=false;
+    depends_on:
+      - db_postgres
+    networks:
+      - dev
+  db_postgres:
     container_name: eatz.postgres.db
     image: postgres:15.2
     ports:
@@ -21,5 +29,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: eatz
+    networks:
+      - dev
+
 volumes:
   pg-data:
