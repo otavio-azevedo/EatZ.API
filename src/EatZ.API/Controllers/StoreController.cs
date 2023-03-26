@@ -1,4 +1,5 @@
 ﻿using EatZ.API.Models.Stores;
+using EatZ.API.Models.Stores.Responses;
 using EatZ.Domain.Commands.Stores.Create;
 using EatZ.Domain.Commands.Stores.Delete;
 using EatZ.Domain.Commands.Stores.Get;
@@ -55,7 +56,7 @@ namespace EatZ.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<SearchStoresByCityResponse>),(int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> SearchStoresByCityAsync([FromQuery] SearchStoresByCityCommand command)
         {

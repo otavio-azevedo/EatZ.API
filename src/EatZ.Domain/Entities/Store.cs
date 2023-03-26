@@ -30,7 +30,7 @@ namespace EatZ.Domain.Entities
         public string ZipCode { get; private set; }
 
         public long CityId { get; private set; }
-        
+
         public City City { get; private set; }
 
         public string Neighborhood { get; private set; }
@@ -54,6 +54,8 @@ namespace EatZ.Domain.Entities
         public double Latitude { get; private set; }
 
         public double Longitude { get; private set; }
+
+        public ICollection<StoreOffers> Offers { get; private set; }
 
         public void SetAdmin(User admin)
         {

@@ -13,6 +13,8 @@ namespace EatZ.Infra.Data.Context
 
         public DbSet<StoreImages> StoreImages { get; set; }
 
+        public DbSet<StoreOffers> StoreOffers { get; set; }
+
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<State> States { get; set; }
