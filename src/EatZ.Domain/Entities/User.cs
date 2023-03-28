@@ -10,6 +10,9 @@ namespace EatZ.Domain.Entities
         }
 
         public string Name { get; set; }
+        
         public DateTime CreationDate { get; set; }
+        
+        public ICollection<Order> Orders { get; private set; }
     }
 }

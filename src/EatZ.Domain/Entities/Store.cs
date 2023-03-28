@@ -56,6 +56,8 @@ namespace EatZ.Domain.Entities
         public double Longitude { get; private set; }
 
         public ICollection<StoreOffers> Offers { get; private set; }
+        
+        public ICollection<Order> Orders { get; private set; }
 
         public void SetAdmin(User admin)
         {

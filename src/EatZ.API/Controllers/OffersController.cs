@@ -57,7 +57,6 @@ namespace EatZ.API.Controllers
         }
 
         [HttpGet("city")]
-        [Authorize(Roles = Roles.Company)]
         [ProducesResponseType(typeof(IEnumerable<SearchOffersByCityResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> SearchOffersByCityAsync([FromQuery] SearchOffersByCityCommand command)

@@ -16,6 +16,7 @@ namespace EatZ.API.Models.Offers
                     x.StoreId,
                     x.Store.Name,
                     Map(x.Store.Images),
+                    x.Id,
                     x.Description,
                     x.NetUnitPrice,
                     x.GrossUnitPrice,

@@ -6,3 +6,6 @@ dotnet ef database update --project .\src\EatZ.Infra.Data\ --startup-project .\s
 
 # Generate script
 dotnet ef migrations script <<MIGRATION_BEFORE_DESIRED_SCRIPT>> -o script.sql --project .\src\EatZ.Infra.Data\ --startup-project .\src\EatZ.API\
+
+# Remove last migration
+dotnet ef remove --project .\src\EatZ.Infra.Data\ --startup-project .\src\EatZ.API\

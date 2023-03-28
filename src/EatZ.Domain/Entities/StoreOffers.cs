@@ -38,6 +38,8 @@ namespace EatZ.Domain.Entities
 
         public DateTime PickUpDate { get; private set; }
 
+        public ICollection<Order> Orders { get; private set; }
+
         public void Update(string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             Description = description;
