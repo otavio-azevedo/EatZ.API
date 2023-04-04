@@ -13,7 +13,7 @@ namespace EatZ.API.Models.Location
                 return Enumerable.Empty<SearchCityResponse>();
             }
 
-            return cities.Select(x => new SearchCityResponse(x.Id, x.Name, x.Latitude, x.Longitude, x?.State?.Name, x.State?.Country?.Name));
+            return cities.Select(x => new SearchCityResponse(x.Id, x.Name, x.Latitude, x.Longitude, x?.State?.Acronym, x.State?.Country?.Acronym));
         }
     }
 }

@@ -2,27 +2,27 @@
 {
     public class SearchCityResponse
     {
-        public SearchCityResponse(long cityId, string cityName, double latitude, double longitude, string stateName, string countryName)
+        public SearchCityResponse(long cityId, string cityName, double latitude, double longitude, string stateAcronym, string countryAcronym)
         {
             CityId = cityId;
             CityName = cityName;
             Latitude = latitude;
             Longitude = longitude;
-            StateName = stateName;
-            CountryName = countryName;
+            StateAcronym = stateAcronym;
+            CountryAcronym = countryAcronym;
         }
 
         public long CityId { get; set; }
-        
+
         public string CityName { get; set; }
 
         public double Latitude { get; set; }
-        
+
         public double Longitude { get; set; }
 
-        public string StateName { get; set; }
-        
-        public string CountryName { get; set; }
+        public string StateAcronym { get; set; }
+
+        public string CountryAcronym { get; set; }
 
     }
 }

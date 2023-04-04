@@ -5,7 +5,7 @@ using EatZ.ExternalServices.Google.Services.Geocoding.Responses;
 using EatZ.Infra.CrossCutting.Extensions;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace EatZ.ExternalServices.Google.Services.Geocoding
@@ -39,7 +39,7 @@ namespace EatZ.ExternalServices.Google.Services.Geocoding
 
             var parsedResponse = await response.Content.ReadAsJsonAsync<GetCoordinatesResponse>();
 
-            if (parsedResponse == default || parsedResponse.Results == default)
+            if (parsedResponse == default || parsedResponse.Results.IsNullOrEmpty())
             {
                 _notificationContext.AddNotification("Falha ao obter as coordenadas geográficas a partir dos dados informados.");
                 return default;
