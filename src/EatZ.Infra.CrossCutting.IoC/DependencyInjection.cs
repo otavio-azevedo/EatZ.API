@@ -19,6 +19,7 @@ namespace EatZ.Infra.CrossCutting.IoC
             services.AddScoped<IStoreOfferRepository, StoreOfferRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
         }
     }
 }

@@ -33,6 +33,8 @@ namespace EatZ.Domain.Entities
         public DateTime? PickUpDate { get; private set; }
 
         public EOrderStatus Status { get; private set; }
+        
+        public Review Review { get; private set; }
 
         public void UpdateStatus(EOrderStatus status)
         {

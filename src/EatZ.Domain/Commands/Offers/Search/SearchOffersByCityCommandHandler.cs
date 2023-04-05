@@ -7,26 +7,33 @@ namespace EatZ.Domain.Commands.Offers.Search
 {
     public class SearchOffersByCityCommandHandler : IRequestHandler<SearchOffersByCityCommand, IEnumerable<StoreOffers>>
     {
+        private readonly IReviewRepository _reviewRepository;
         private readonly IStoreOfferRepository _storeOfferRepository;
         private readonly INotificationContext _notificationContext;
 
-        public SearchOffersByCityCommandHandler(IStoreOfferRepository storeOfferRepository, INotificationContext notificationContext)
+        public SearchOffersByCityCommandHandler(IReviewRepository reviewRepository, IStoreOfferRepository storeOfferRepository, INotificationContext notificationContext)
         {
+            _reviewRepository = reviewRepository;
             _storeOfferRepository = storeOfferRepository;
             _notificationContext = notificationContext;
         }
 
         public async Task<IEnumerable<StoreOffers>> Handle(SearchOffersByCityCommand request, CancellationToken cancellationToken)
         {
-            var stores = await _storeOfferRepository.SearchOffersByCityAsync(request.CityId);
+            var offers = await _storeOfferRepository.SearchOffersByCityAsync(request.CityId);
 
-            if (stores == default)
+            if (offers == default)
             {
-                _notificationContext.AddNotification("Nenhuma loja encontrada para os filtros informados");
+                _notificationContext.AddNotification("Nenhuma oferta encontrada para os filtros informados");
                 return default;
             }
 
-            return stores;
+            var reviews = _reviewRepository.GetAverageStoreRatingByCity(request.CityId);
+
+            foreach (var offer in offers)
+                offer.Store.SetAverageReview(reviews.FirstOrDefault(x => x.StoreId == offer.StoreId) ?? new());
+
+            return offers;
         }
     }
 }

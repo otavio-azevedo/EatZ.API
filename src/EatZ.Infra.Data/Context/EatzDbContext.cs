@@ -22,6 +22,8 @@ namespace EatZ.Infra.Data.Context
         public DbSet<State> States { get; set; }
 
         public DbSet<City> Cities { get; set; }
+        
+        public DbSet<Review> Reviews { get; set; }
 
         public EatzDbContext(DbContextOptions<EatzDbContext> options, IConfiguration configuration)
             : base(options)

@@ -5,10 +5,12 @@ namespace EatZ.API.Models.Offers.Responses
 {
     public class SearchOffersByCityResponse
     {
-        public SearchOffersByCityResponse(string storeId, string storeName, IEnumerable<StoreImageDto> images, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
+        public SearchOffersByCityResponse(string storeId, string storeName, double storeAverageRating, int storeNumberOfReviews, IEnumerable<StoreImageDto> images, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             StoreId = storeId;
             StoreName = storeName;
+            StoreAverageRating = storeAverageRating;
+            StoreNumberOfReviews = storeNumberOfReviews;
             Images = images;
             OfferId = offerId;
             Description = description;
@@ -24,10 +26,14 @@ namespace EatZ.API.Models.Offers.Responses
 
         public string StoreName { get; private set; }
 
+        public double StoreAverageRating { get; private set; }
+
+        public int StoreNumberOfReviews { get; private set; }
+
         public IEnumerable<StoreImageDto> Images { get; private set; }
 
         public string OfferId { get; private set; }
-        
+
         public string Description { get; private set; }
 
         public decimal NetUnitPrice { get; private set; }

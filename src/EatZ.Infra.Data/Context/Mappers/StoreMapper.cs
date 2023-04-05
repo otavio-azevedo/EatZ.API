@@ -32,9 +32,11 @@ namespace EatZ.Infra.Data.Context.Mappers
                    .HasForeignKey(v => v.CityId)
                    .HasConstraintName("FK_CITIES_STORE_ID")
                    .OnDelete(DeleteBehavior.NoAction);
-            
+
             builder.Property(x => x.Latitude).HasColumnName("LATITUDE").IsRequired();
             builder.Property(x => x.Longitude).HasColumnName("LONGITUDE").IsRequired();
+
+            builder.Ignore(x => x.AverageReview);
         }
     }
 }

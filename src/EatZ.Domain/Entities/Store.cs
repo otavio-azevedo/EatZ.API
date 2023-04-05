@@ -1,4 +1,5 @@
-﻿using EatZ.Domain.Entities.Base;
+﻿using EatZ.Domain.DTOs;
+using EatZ.Domain.Entities.Base;
 
 namespace EatZ.Domain.Entities
 {
@@ -56,8 +57,10 @@ namespace EatZ.Domain.Entities
         public double Longitude { get; private set; }
 
         public ICollection<StoreOffers> Offers { get; private set; }
-        
+
         public ICollection<Order> Orders { get; private set; }
+
+        public StoreAverageReviewDto AverageReview { get; private set; }
 
         public void SetAdmin(User admin)
         {
@@ -68,6 +71,11 @@ namespace EatZ.Domain.Entities
         public void SetImages(ICollection<StoreImages> images)
         {
             Images = images;
+        }
+
+        public void SetAverageReview(StoreAverageReviewDto averageReview)
+        {
+            AverageReview = averageReview;
         }
     }
 }
