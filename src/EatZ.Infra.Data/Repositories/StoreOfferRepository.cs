@@ -34,8 +34,6 @@ namespace EatZ.Infra.Data.Repositories
             return await _context.StoreOffers
                                  .Include(x => x.Store)
                                     .ThenInclude(x => x.City)
-                                 .Include(x => x.Store)
-                                    .ThenInclude(x => x.Images)
                                  .AsNoTracking()
                                  .Where(x => x.Store.City.Id == cityId)
                                  .ToListAsync();

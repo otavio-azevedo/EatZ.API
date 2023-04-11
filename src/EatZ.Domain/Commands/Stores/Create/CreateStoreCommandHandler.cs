@@ -35,6 +35,9 @@ namespace EatZ.Domain.Commands.Stores.Create
 
             var coordinates = await _googleGeocodingApi.GetCoordinatesAsync(request.ZipCode, request.Neighborhood, request.Street, request.StreetNumber);
 
+            if (_notificationContext.HasNotifications)
+                return default;
+
             var store = new Store(
                 request.Name,
                 request.DocumentNumber,
@@ -47,12 +50,10 @@ namespace EatZ.Domain.Commands.Stores.Create
                 request.Complement,
                 request.Description,
                 coordinates.Latitude,
-                coordinates.Longitude);
+                coordinates.Longitude,
+                Convert.FromBase64String(request.LogoImage));
 
             store.SetAdmin(user);
-
-            var storeImages = request.Images.Select(x => new StoreImages(store.Id, x.Title, x.Content)).ToList();
-            store.SetImages(storeImages);
 
             await _storeRepository.InsertStoreAsync(store);
 

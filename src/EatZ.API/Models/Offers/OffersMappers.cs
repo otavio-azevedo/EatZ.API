@@ -17,7 +17,7 @@ namespace EatZ.API.Models.Offers
                     x.Store.Name,
                     x.Store.AverageReview.AverageRating,
                     x.Store.AverageReview.NumberOfReviews,
-                    Map(x.Store.Images),
+                    x.Store.LogoImage,
                     x.Id,
                     x.Description,
                     x.NetUnitPrice,

@@ -1,17 +1,16 @@
-﻿using EatZ.Domain.DTOs;
-using EatZ.Infra.CrossCutting.Enums;
+﻿using EatZ.Infra.CrossCutting.Enums;
 
 namespace EatZ.API.Models.Offers.Responses
 {
     public class SearchOffersByCityResponse
     {
-        public SearchOffersByCityResponse(string storeId, string storeName, double storeAverageRating, int storeNumberOfReviews, IEnumerable<StoreImageDto> images, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
+        public SearchOffersByCityResponse(string storeId, string storeName, double storeAverageRating, int storeNumberOfReviews, byte[] storeLogoImage, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             StoreId = storeId;
             StoreName = storeName;
             StoreAverageRating = storeAverageRating;
             StoreNumberOfReviews = storeNumberOfReviews;
-            Images = images;
+            StoreLogoImage = Convert.ToBase64String(storeLogoImage);
             OfferId = offerId;
             Description = description;
             NetUnitPrice = netUnitPrice;
@@ -30,7 +29,7 @@ namespace EatZ.API.Models.Offers.Responses
 
         public int StoreNumberOfReviews { get; private set; }
 
-        public IEnumerable<StoreImageDto> Images { get; private set; }
+        public string StoreLogoImage { get; private set; }
 
         public string OfferId { get; private set; }
 

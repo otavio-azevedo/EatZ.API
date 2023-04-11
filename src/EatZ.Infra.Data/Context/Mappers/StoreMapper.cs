@@ -35,6 +35,7 @@ namespace EatZ.Infra.Data.Context.Mappers
 
             builder.Property(x => x.Latitude).HasColumnName("LATITUDE").IsRequired();
             builder.Property(x => x.Longitude).HasColumnName("LONGITUDE").IsRequired();
+            builder.Property(x => x.LogoImage).HasColumnName("LOGO_IMAGE").IsRequired();
 
             builder.Ignore(x => x.AverageReview);
         }

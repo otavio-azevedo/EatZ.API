@@ -5,7 +5,7 @@ namespace EatZ.Domain.Commands.Stores.Create
 {
     public class CreateStoreCommand : IRequest<string>
     {
-        public CreateStoreCommand(string name, string documentNumber, string phone, string zipCode, string neighborhood, string complement, long cityId, string street, int streetNumber, IEnumerable<StoreImageDto> images, string description)
+        public CreateStoreCommand(string name, string documentNumber, string phone, string zipCode, string neighborhood, string complement, long cityId, string street, int streetNumber, string description, string logoImage)
         {
             Name = name;
             DocumentNumber = documentNumber;
@@ -16,8 +16,8 @@ namespace EatZ.Domain.Commands.Stores.Create
             CityId = cityId;
             Street = street;
             StreetNumber = streetNumber;
-            Images = images;
             Description = description;
+            LogoImage = logoImage;
         }
 
         public string Name { get; private set; }
@@ -40,6 +40,6 @@ namespace EatZ.Domain.Commands.Stores.Create
 
         public string Description { get; private set; }
 
-        public IEnumerable<StoreImageDto> Images { get; private set; }
+        public string LogoImage { get; private set; }
     }
 }

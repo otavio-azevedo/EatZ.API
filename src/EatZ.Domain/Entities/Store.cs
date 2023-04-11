@@ -5,7 +5,7 @@ namespace EatZ.Domain.Entities
 {
     public class Store : Entity<string>
     {
-        public Store(string name, string documentNumber, string phone, string zipCode, long cityId, string neighborhood, string street, int streetNumber, string complement, string description, double latitude, double longitude)
+        public Store(string name, string documentNumber, string phone, string zipCode, long cityId, string neighborhood, string street, int streetNumber, string complement, string description, double latitude, double longitude, byte[] logoImage)
         {
             Name = name;
             DocumentNumber = documentNumber;
@@ -20,6 +20,7 @@ namespace EatZ.Domain.Entities
             Description = description;
             Latitude = latitude;
             Longitude = longitude;
+            LogoImage = logoImage;
         }
 
         public string Name { get; private set; }
@@ -61,6 +62,8 @@ namespace EatZ.Domain.Entities
         public ICollection<Order> Orders { get; private set; }
 
         public StoreAverageReviewDto AverageReview { get; private set; }
+
+        public byte[] LogoImage { get; private set; }
 
         public void SetAdmin(User admin)
         {
