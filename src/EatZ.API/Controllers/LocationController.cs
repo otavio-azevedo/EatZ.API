@@ -1,5 +1,7 @@
 ﻿using EatZ.API.Models.Location;
 using EatZ.API.Models.Location.Responses;
+using EatZ.Domain.Commands.Location.GetCitiesByState;
+using EatZ.Domain.Commands.Location.GetStatesByCountry;
 using EatZ.Domain.Commands.Location.SearchCities;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
@@ -19,13 +21,31 @@ namespace EatZ.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet()]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SearchCityResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> SearchCitiesAsync([FromQuery] SearchCitiesCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(LocationMappers.Map(result));
+        }
+
+        [HttpGet("states")]
+        [ProducesResponseType(typeof(IEnumerable<GetStatesByCountryResponse>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
+        public async Task<IActionResult> GetStatesByCountryAsync([FromQuery] GetStatesByCountryCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(LocationMappers.Map(result));
+        }
+
+        [HttpGet("cities")]
+        [ProducesResponseType(typeof(IEnumerable<GetCitiesByStateResponse>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
+        public async Task<IActionResult> GetCitiesByStateAsync([FromQuery] GetCitiesByStateCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(LocationMappers.MapCities(result));
         }
     }
 }

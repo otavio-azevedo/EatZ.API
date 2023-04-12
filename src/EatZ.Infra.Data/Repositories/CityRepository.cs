@@ -14,6 +14,11 @@ namespace EatZ.Infra.Data.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<City>> GetCitiesByStateIdAsync(long stateId)
+        {
+            return await _context.Cities.Where(x => x.StateId == stateId).ToListAsync();
+        }
+
         public async Task<IEnumerable<City>> SearchCitiesByNameAsync(string name, int offset, int limit)
         {
             return await _context.Cities
