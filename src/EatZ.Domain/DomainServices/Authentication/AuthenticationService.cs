@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using EatZ.Infra.CrossCutting.Constants;
 using EatZ.Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using System.Security.Cryptography;
 
 namespace EatZ.Domain.DomainServices.Authentication
 {
@@ -43,7 +42,7 @@ namespace EatZ.Domain.DomainServices.Authentication
             },
             password: password);
 
-            if (!result.Succeeded)
+            if (result == default || !result.Succeeded)
             {
                 _notificationContext.AddNotification("Não foi possível criar o usuário neste momento.");
             }
@@ -53,7 +52,7 @@ namespace EatZ.Domain.DomainServices.Authentication
         {
             var result = await _userManager.AddToRoleAsync(user, role);
 
-            if (!result.Succeeded)
+            if (result == default || !result.Succeeded)
             {
                 _notificationContext.AddNotification("Não foi possível adicionar a role ao usuário.");
             }
@@ -105,17 +104,23 @@ namespace EatZ.Domain.DomainServices.Authentication
 
         public string GetUserIdFromToken()
         {
-            return _httpContext.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.UserId)?.Value;
+            return _httpContext?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.UserId)?.Value;
         }
 
         public async Task<AuthenticationTokenDto> GetBearerTokenAsync(User user)
         {
-            var userRole = (await _userManager.GetRolesAsync(user)).First();
+            var userRoles = await _userManager.GetRolesAsync(user);
 
+            if (userRoles.IsNullOrEmpty())
+            {
+                _notificationContext.AddNotification($"O usuario {user?.Name} não possui nenhuma role associada.");
+                return default;
+            }
+            
             DateTime expiration = DateTime.Now.AddMinutes(60);
 
             var token = CreateJwtToken(
-                CreateClaims(user, userRole),
+                CreateClaims(user, userRoles.First()),
                 CreateSigningCredentials(),
                 expiration
             );

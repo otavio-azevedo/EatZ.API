@@ -444,3 +444,6 @@ $RECYCLE.BIN/
 
 # Domain/Entities/Logs
 !**/Entities/Logs
+
+# sonarqube
+.sonarqube/

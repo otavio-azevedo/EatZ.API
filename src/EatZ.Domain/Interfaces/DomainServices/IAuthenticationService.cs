@@ -1,6 +1,5 @@
 ﻿using EatZ.Domain.DTOs;
 using EatZ.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace EatZ.Domain.Interfaces.DomainServices
 {
