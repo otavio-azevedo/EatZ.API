@@ -1,5 +1,4 @@
 using EatZ.Domain.Entities;
-using EatZ.Domain.Interfaces.DomainServices;
 using EatZ.Domain.Interfaces.Repositories;
 using EatZ.Domain.Interfaces.Utility;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;

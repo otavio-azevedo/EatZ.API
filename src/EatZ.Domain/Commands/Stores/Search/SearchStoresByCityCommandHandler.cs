@@ -2,6 +2,7 @@
 using EatZ.Domain.Interfaces.Repositories;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EatZ.Domain.Commands.Stores.Search
 {
@@ -20,10 +21,10 @@ namespace EatZ.Domain.Commands.Stores.Search
         {
             var stores = await _storeRepository.SearchStoresByCityAsync(request.CityId);
 
-            if (stores == default)
+            if (stores.IsNullOrEmpty())
             {
                 _notificationContext.AddNotification("Nenhuma loja encontrada para os filtros informados");
-                return default;
+                return Enumerable.Empty<Store>();
             }
 
             return stores;

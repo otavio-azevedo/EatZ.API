@@ -32,7 +32,6 @@ namespace EatZ.API.Controllers
         }
 
         [HttpGet("states")]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<GetStatesByCountryResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> GetStatesByCountryAsync([FromQuery] GetStatesByCountryCommand command)
@@ -42,7 +41,6 @@ namespace EatZ.API.Controllers
         }
 
         [HttpGet("cities")]
-        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<GetCitiesByStateResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> GetCitiesByStateAsync([FromQuery] GetCitiesByStateCommand command)

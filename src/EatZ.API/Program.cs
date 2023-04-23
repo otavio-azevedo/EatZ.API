@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace EatZ.API
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
