@@ -19,6 +19,12 @@ namespace EatZ.Domain.Commands.Authentication.Register
 
         public async Task<AuthenticationTokenDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrEmpty(request.Role))
+            {
+                _notificationContext.AddNotification("É obrigatório informar o papel do usuário.");
+                return default;
+            }
+
             if (request.Role.ToUpper() != Roles.Company.ToUpper() && request.Role.ToUpper() != Roles.Consumer.ToUpper())
             {
                 _notificationContext.AddNotification($"O papel '{request.Role}' informado não existe.");

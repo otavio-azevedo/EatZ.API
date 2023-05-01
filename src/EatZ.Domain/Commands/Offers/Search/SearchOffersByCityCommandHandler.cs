@@ -2,6 +2,7 @@ using EatZ.Domain.Entities;
 using EatZ.Domain.Interfaces.Repositories;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EatZ.Domain.Commands.Offers.Search
 {
@@ -22,16 +23,16 @@ namespace EatZ.Domain.Commands.Offers.Search
         {
             var offers = await _storeOfferRepository.SearchOffersByCityAsync(request.CityId);
 
-            if (offers == default)
+            if (offers.IsNullOrEmpty())
             {
                 _notificationContext.AddNotification("Nenhuma oferta encontrada para os filtros informados");
-                return default;
+                return Enumerable.Empty<StoreOffers>();
             }
 
             var reviews = _reviewRepository.GetAverageStoreRatingByCity(request.CityId);
 
             foreach (var offer in offers)
-                offer.Store.SetAverageReview(reviews.FirstOrDefault(x => x.StoreId == offer.StoreId) ?? new());
+                offer?.Store?.SetAverageReview(reviews.FirstOrDefault(x => x.StoreId == offer.StoreId) ?? new());
 
             return offers;
         }
