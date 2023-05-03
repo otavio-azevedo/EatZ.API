@@ -2,6 +2,7 @@
 using EatZ.Domain.Interfaces.Repositories;
 using EatZ.Infra.CrossCutting.Utility.NotificationPattern;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EatZ.Domain.Commands.Location.SearchCities
 {
@@ -20,7 +21,7 @@ namespace EatZ.Domain.Commands.Location.SearchCities
         {
             IEnumerable<City> result = await _cityRepository.SearchCitiesByNameAsync(request.City, request.Offset, request.Limit);
 
-            if (result == default)
+            if (result.IsNullOrEmpty())
             {
                 _notificationContext.AddNotification("Nenhuma cidade localizada, tente novamente.");
                 return Enumerable.Empty<City>();

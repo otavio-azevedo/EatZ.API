@@ -37,9 +37,13 @@ namespace EatZ.Domain.Commands.Orders.Update
 
             if (request.Status == EOrderStatus.Confirmed)
                 order.SetConfirmationDate();
-
-            if (request.Status == EOrderStatus.PickedUp)
+            else if (request.Status == EOrderStatus.PickedUp)
                 order.SetPickUpDate();
+            else
+            {
+                _notificationContext.AddNotification($"O status informado é inválido. ({request.Status})");
+                return;
+            }
 
             order.UpdateStatus(request.Status);
 
