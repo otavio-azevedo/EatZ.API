@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EatZ.ExternalServices.Googl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EatZ.Domain.Tests", "tests\EatZ.Domain.Tests\EatZ.Domain.Tests.csproj", "{437291D0-FB56-464D-BA21-14DCC0084647}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EatZ.ExternalServices.Google.Tests", "tests\EatZ.ExternalServices.Google.Tests\EatZ.ExternalServices.Google.Tests.csproj", "{6486C19B-7776-4F6F-8C9D-777EFD7C7342}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{437291D0-FB56-464D-BA21-14DCC0084647}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{437291D0-FB56-464D-BA21-14DCC0084647}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{437291D0-FB56-464D-BA21-14DCC0084647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6486C19B-7776-4F6F-8C9D-777EFD7C7342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6486C19B-7776-4F6F-8C9D-777EFD7C7342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6486C19B-7776-4F6F-8C9D-777EFD7C7342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6486C19B-7776-4F6F-8C9D-777EFD7C7342}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{769005A8-85A3-4158-9503-496B3B12063A} = {54A0BD6E-EF94-4132-9AF8-63DA3E6AEBB8}
 		{FB780AFC-4FAA-473F-A052-DA96FB62BA69} = {A25798CE-F1FB-41DA-9F80-5F3071136C26}
 		{437291D0-FB56-464D-BA21-14DCC0084647} = {76761D70-9384-4C71-AC1A-DEBEB303358F}
+		{6486C19B-7776-4F6F-8C9D-777EFD7C7342} = {76761D70-9384-4C71-AC1A-DEBEB303358F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D5182A8-251E-447D-AFD0-D65EFE3E2A1F}
