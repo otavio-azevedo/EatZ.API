@@ -11,5 +11,7 @@ namespace EatZ.Domain.Interfaces.Repositories
         void DeleteStore(Store store);
         
         Task<IEnumerable<Store>> SearchStoresByCityAsync(long cityId);
+        
+        Task<Store> GetStoreByAdminIdAsync(string adminId);
     }
 }
