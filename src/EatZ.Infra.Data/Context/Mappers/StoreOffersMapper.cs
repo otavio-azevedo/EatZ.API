@@ -14,7 +14,8 @@ namespace EatZ.Infra.Data.Context.Mappers
             builder.Property(x => x.Description).HasColumnName("DESCRIPTION").HasMaxLength(200).IsRequired();
             builder.Property(x => x.NetUnitPrice).HasColumnName("NET_UNIT_PRICE").IsRequired();
             builder.Property(x => x.GrossUnitPrice).HasColumnName("GROSS_UNIT_PRICE").IsRequired();
-            builder.Property(x => x.Quantity).HasColumnName("QUANTITY").IsRequired();
+            builder.Property(x => x.InitQuantity).HasColumnName("INIT_QUANTITY").IsRequired();
+            builder.Property(x => x.QuantityAvaible).HasColumnName("QUANTITY_AVAIBLE").IsRequired();
             builder.Property(x => x.Taste)
                             .HasColumnName("TASTE")
                             .HasConversion(

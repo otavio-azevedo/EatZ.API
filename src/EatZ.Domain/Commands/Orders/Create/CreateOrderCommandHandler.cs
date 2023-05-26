@@ -8,32 +8,57 @@ using MediatR;
 
 namespace EatZ.Domain.Commands.Orders.Create
 {
-    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, string>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, long>
     {
+        private readonly IStoreOfferRepository _storeOfferRepository;
         private readonly IAuthenticationService _authenticationService;
         private readonly IOrderRepository _orderRepository;
         private readonly INotificationContext _notificationContext;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateOrderCommandHandler(IAuthenticationService authenticationService, IOrderRepository orderRepository, INotificationContext notificationContext, IUnitOfWork unitOfWork)
+        public CreateOrderCommandHandler(IStoreOfferRepository storeOfferRepository, IAuthenticationService authenticationService, IOrderRepository orderRepository, INotificationContext notificationContext, IUnitOfWork unitOfWork)
         {
+            _storeOfferRepository = storeOfferRepository;
             _authenticationService = authenticationService;
             _orderRepository = orderRepository;
             _notificationContext = notificationContext;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<string> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<long> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             string clientUserId = _authenticationService.GetUserIdFromToken();
-            var order = new Order(request.StoreId, clientUserId, request.OfferId, DateTime.Now, EOrderStatus.Created);
+
+            StoreOffers offer = await _storeOfferRepository.GetOfferByIdAsync(request.OfferId);
+
+            if (offer.QuantityAvaible == default)
+            {
+                _notificationContext.AddNotification("A oferta informada não está mais disponível no momento.");
+                return default;
+            }
+
+            await _unitOfWork.BeginTransactionAsync();
+
+            var order = new Order(request.StoreId,
+                clientUserId,
+                request.OfferId,
+                DateTime.Now,
+                EOrderStatus.Created,
+                offer.NetUnitPrice,
+                request.Quantity);
 
             await _orderRepository.InsertOrderAsync(order);
 
-            await _unitOfWork.SaveChangesAsync();
-
             if (_notificationContext.HasNotifications)
+            {
+                await _unitOfWork.RollbackTransactionAsync();
                 return default;
+            }
+
+            offer.DiscountQuantityAvaible(request.Quantity);
+
+            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
 
             return order.Id;
         }

@@ -3,15 +3,18 @@ using EatZ.Infra.CrossCutting.Enums;
 
 namespace EatZ.Domain.Entities
 {
-    public class Order : Entity<string>
+    public class Order : Entity<long>
     {
-        public Order(string storeId, string clientUserId, string offerId, DateTime creationDate, EOrderStatus status)
+        public Order(string storeId, string clientUserId, string offerId, DateTime creationDate, EOrderStatus status, decimal netUnitPrice, int quantity)
         {
             StoreId = storeId;
             ClientUserId = clientUserId;
             OfferId = offerId;
             CreationDate = creationDate;
             Status = status;
+            NetUnitPrice = netUnitPrice;
+            Quantity = quantity;
+            Total = Math.Round(Quantity * netUnitPrice,2);
         }
 
         public string StoreId { get; private set; }
@@ -35,6 +38,13 @@ namespace EatZ.Domain.Entities
         public EOrderStatus Status { get; private set; }
         
         public Review Review { get; private set; }
+        
+        public decimal NetUnitPrice { get; private set; }
+
+        public int Quantity { get; private set; }
+        
+        public decimal Total { get; private set; }
+
 
         public void UpdateStatus(EOrderStatus status)
         {

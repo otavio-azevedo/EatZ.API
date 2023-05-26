@@ -5,13 +5,13 @@ namespace EatZ.Domain.Entities
 {
     public class StoreOffers : Entity<string>
     {
-        public StoreOffers(string storeId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
+        public StoreOffers(string storeId, string description, decimal netUnitPrice, decimal grossUnitPrice, int initQuantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             StoreId = storeId;
             Description = description;
             NetUnitPrice = netUnitPrice;
             GrossUnitPrice = grossUnitPrice;
-            Quantity = quantity;
+            InitQuantity = QuantityAvaible = initQuantity;
             Taste = taste;
             CreationDate = DateTime.Now;
             ExpirationDate = expirationDate;
@@ -28,7 +28,9 @@ namespace EatZ.Domain.Entities
 
         public decimal GrossUnitPrice { get; private set; }
 
-        public int Quantity { get; private set; }
+        public int InitQuantity { get; private set; }
+
+        public int QuantityAvaible { get; private set; }
 
         public EFoodTaste Taste { get; private set; }
 
@@ -40,15 +42,20 @@ namespace EatZ.Domain.Entities
 
         public ICollection<Order> Orders { get; private set; }
 
-        public void Update(string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
+        public void Update(string description, decimal netUnitPrice, decimal grossUnitPrice, int initQuantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             Description = description;
             NetUnitPrice = netUnitPrice;
             GrossUnitPrice = grossUnitPrice;
-            Quantity = quantity;
+            InitQuantity = initQuantity;
             Taste = taste;
             ExpirationDate = expirationDate;
-            PickUpDate = pickUpDate;    
+            PickUpDate = pickUpDate;
+        }
+
+        internal void DiscountQuantityAvaible(int quantity)
+        {
+            QuantityAvaible -= quantity;
         }
     }
 }

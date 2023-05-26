@@ -1,4 +1,5 @@
-﻿using EatZ.Domain.Entities;
+﻿using EatZ.Domain.DTOs;
+using EatZ.Domain.Entities;
 
 namespace EatZ.Domain.Interfaces.Repositories
 {
@@ -6,6 +7,10 @@ namespace EatZ.Domain.Interfaces.Repositories
     {
         Task InsertOrderAsync(Order order);
 
-        Task<Order> GetOrderByIdAsync(string id);
+        Task<Order> GetOrderByIdAsync(long id);
+        
+        Task<IEnumerable<Order>> ListOrdersByUserIdAsync(string userId);
+
+        Task<IEnumerable<Order>> ListOrdersByAdminIdAsync(string adminId);
     }
 }

@@ -4,7 +4,7 @@ namespace EatZ.Domain.Entities
 {
     public class Review : Entity<string>
     {
-        public Review(string orderId, string comment, short rating)
+        public Review(long orderId, string comment, short rating)
         {
             OrderId = orderId;
             Comment = comment;
@@ -12,7 +12,7 @@ namespace EatZ.Domain.Entities
             CreationDate = DateTime.Now;
         }
 
-        public string OrderId { get; private set; }
+        public long OrderId { get; private set; }
 
         public Order Order { get; private set; }
 

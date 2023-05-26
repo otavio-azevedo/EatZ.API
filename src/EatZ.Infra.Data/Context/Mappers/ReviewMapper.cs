@@ -10,7 +10,7 @@ namespace EatZ.Infra.Data.Context.Mappers
         {
             builder.ToTable("REVIEWS");
             builder.Property(x => x.Id).HasColumnName("ID").HasMaxLength(36).IsRequired();
-            builder.Property(x => x.OrderId).HasColumnName("ORDER_ID").HasMaxLength(36).IsRequired();
+            builder.Property(x => x.OrderId).HasColumnName("ORDER_ID").IsRequired();
             builder.Property(x => x.Comment).HasColumnName("COMMENT").HasMaxLength(200);
             builder.Property(x => x.Rating).HasColumnName("RATING");
 

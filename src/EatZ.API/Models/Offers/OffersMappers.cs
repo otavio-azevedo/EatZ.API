@@ -21,7 +21,7 @@ namespace EatZ.API.Models.Offers
                     x.Description,
                     x.NetUnitPrice,
                     x.GrossUnitPrice,
-                    x.Quantity,
+                    x.InitQuantity,
                     x.Taste,
                     x.ExpirationDate,
                     x.PickUpDate

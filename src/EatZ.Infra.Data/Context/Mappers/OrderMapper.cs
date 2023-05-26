@@ -10,10 +10,13 @@ namespace EatZ.Infra.Data.Context.Mappers
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("ORDERS");
-            builder.Property(x => x.Id).HasColumnName("ID").HasMaxLength(36).IsRequired();
+            builder.Property(x => x.Id).HasColumnName("ID").IsRequired();
             builder.Property(x => x.StoreId).HasColumnName("STORE_ID").HasMaxLength(36).IsRequired();
             builder.Property(x => x.ClientUserId).HasColumnName("CLIENT_USER_ID").HasMaxLength(36).IsRequired();
             builder.Property(x => x.OfferId).HasColumnName("OFFER_ID").HasMaxLength(36).IsRequired();
+            builder.Property(x => x.NetUnitPrice).HasColumnName("NET_UNIT_PRICE").IsRequired();
+            builder.Property(x => x.Quantity).HasColumnName("QUANTITY").IsRequired();
+            builder.Property(x => x.Total).HasColumnName("TOTAL").IsRequired();
             builder.Property(x => x.CreationDate).HasColumnName("CREATION_DATE").IsRequired();
             builder.Property(x => x.ConfirmationDate).HasColumnName("CONFIRMATION_DATE");
             builder.Property(x => x.PickUpDate).HasColumnName("PICK_UP_DATE");

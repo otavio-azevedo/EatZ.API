@@ -107,6 +107,14 @@ namespace EatZ.Domain.DomainServices.Authentication
             return _httpContext?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.UserId)?.Value;
         }
 
+        public TokenInfoDto GetUserInfoFromToken()
+        {
+            var userId = GetUserIdFromToken();
+            var role = _httpContext?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.Role)?.Value;
+            
+            return new TokenInfoDto(userId, role);
+        }
+
         public async Task<AuthenticationTokenDto> GetBearerTokenAsync(User user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -142,7 +150,7 @@ namespace EatZ.Domain.DomainServices.Authentication
 
         private Claim[] CreateClaims(User user, string userRole) =>
            new[] {
-                new Claim(nameof(Roles).ToLower(), userRole),
+                new Claim(Claims.Role, userRole),
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
