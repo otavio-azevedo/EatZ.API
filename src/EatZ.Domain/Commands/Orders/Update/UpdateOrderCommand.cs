@@ -5,7 +5,7 @@ namespace EatZ.Domain.Commands.Orders.Update
 {
     public class UpdateOrderCommand : IRequest
     {
-        public string OrderId { get; set; }
+        public long OrderId { get; set; }
 
         public EOrderStatus Status { get; set; }
     }

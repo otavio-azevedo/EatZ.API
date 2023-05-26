@@ -4,7 +4,7 @@ namespace EatZ.API.Models.Offers.Responses
 {
     public class SearchOffersByCityResponse
     {
-        public SearchOffersByCityResponse(string storeId, string storeName, double storeAverageRating, int storeNumberOfReviews, byte[] storeLogoImage, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int quantity, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
+        public SearchOffersByCityResponse(string storeId, string storeName, double storeAverageRating, int storeNumberOfReviews, byte[] storeLogoImage, string offerId, string description, decimal netUnitPrice, decimal grossUnitPrice, int initQuantity, int quantityAvaible, EFoodTaste taste, DateTime expirationDate, DateTime pickUpDate)
         {
             StoreId = storeId;
             StoreName = storeName;
@@ -15,7 +15,8 @@ namespace EatZ.API.Models.Offers.Responses
             Description = description;
             NetUnitPrice = netUnitPrice;
             GrossUnitPrice = grossUnitPrice;
-            Quantity = quantity;
+            InitQuantity = initQuantity;
+            QuantityAvaible = quantityAvaible;
             Taste = taste;
             ExpirationDate = expirationDate;
             PickUpDate = pickUpDate;
@@ -39,7 +40,8 @@ namespace EatZ.API.Models.Offers.Responses
 
         public decimal GrossUnitPrice { get; private set; }
 
-        public int Quantity { get; private set; }
+        public int InitQuantity { get; private set; }
+        public int QuantityAvaible { get; private set; }
 
         public EFoodTaste Taste { get; private set; }
 

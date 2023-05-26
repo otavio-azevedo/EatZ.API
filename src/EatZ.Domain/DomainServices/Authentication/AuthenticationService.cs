@@ -107,6 +107,14 @@ namespace EatZ.Domain.DomainServices.Authentication
             return _httpContext?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == Claims.UserId)?.Value;
         }
 
+        public TokenInfoDto GetUserInfoFromToken()
+        {
+            var userId = GetUserIdFromToken();
+            var role = _httpContext?.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimsIdentity.DefaultRoleClaimType)?.Value;
+            
+            return new TokenInfoDto(userId, role);
+        }
+
         public async Task<AuthenticationTokenDto> GetBearerTokenAsync(User user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -117,7 +125,7 @@ namespace EatZ.Domain.DomainServices.Authentication
                 return default;
             }
             
-            DateTime expiration = DateTime.Now.AddMinutes(60);
+            DateTime expiration = DateTime.Now.AddMinutes(180);
 
             var token = CreateJwtToken(
                 CreateClaims(user, userRoles.First()),
@@ -142,11 +150,12 @@ namespace EatZ.Domain.DomainServices.Authentication
 
         private Claim[] CreateClaims(User user, string userRole) =>
            new[] {
-                new Claim(nameof(Roles).ToLower(), userRole),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, userRole),
+                new Claim(Claims.UserRole, userRole),
+                new Claim(Claims.UserId, user.Id),
                 new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim(Claims.UserId, user.Id),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
            };

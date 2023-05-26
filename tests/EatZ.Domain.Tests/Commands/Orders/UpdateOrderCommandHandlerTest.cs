@@ -25,11 +25,10 @@ namespace EatZ.Domain.Tests.Commands.Orders
         }
 
         [Theory]
-        [InlineData(EOrderStatus.Confirmed)]
         [InlineData(EOrderStatus.PickedUp)]
         public async Task Handle_Success(EOrderStatus status)
         {
-            var mockOrder = new Order(default, default, default, default, default);
+            var mockOrder = new Order(default, default, default, default, default, default, default);
             _orderRepository.Setup(x => x.GetOrderByIdAsync(default)).ReturnsAsync(mockOrder).Verifiable();
             _unitOfWork.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true).Verifiable();
 
@@ -56,7 +55,7 @@ namespace EatZ.Domain.Tests.Commands.Orders
         [Fact]
         public async Task Handle_Error_Status()
         {
-            var mockOrder = new Order(default, default, default, default, default);
+            var mockOrder = new Order(default, default, default, default, default, default, default);
             _orderRepository.Setup(x => x.GetOrderByIdAsync(default)).ReturnsAsync(mockOrder).Verifiable();
 
             var command = new UpdateOrderCommand();

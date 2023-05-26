@@ -2,9 +2,8 @@
 {
     public enum EOrderStatus
     {
-        Created = 1,
-        Confirmed = 2,
-        PickedUp = 3,
-        Canceled = 4
+        Reserved = 1,
+        PickedUp = 2,
+        Canceled = 3
     }
 }

@@ -3,7 +3,7 @@ using EatZ.API.Models.Stores.Responses;
 using EatZ.Domain.Commands.Stores.Create;
 using EatZ.Domain.Commands.Stores.Delete;
 using EatZ.Domain.Commands.Stores.Get;
-using EatZ.Domain.Commands.Stores.GetStoreByUserId;
+using EatZ.Domain.Commands.Stores.GetStoreByCurrentUser;
 using EatZ.Domain.Commands.Stores.Search;
 using EatZ.Domain.Entities;
 using EatZ.Infra.CrossCutting.Constants;
@@ -52,7 +52,7 @@ namespace EatZ.API.Controllers
         [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
         public async Task<IActionResult> GetStoreByCurrentUserAsync()
         {
-            var result = await _mediator.Send(new GetStoreByAdminIdCommand());
+            var result = await _mediator.Send(new GetStoreByCurrentUserCommand());
             return Ok(result);
         }
 

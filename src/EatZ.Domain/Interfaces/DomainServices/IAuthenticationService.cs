@@ -20,5 +20,7 @@ namespace EatZ.Domain.Interfaces.DomainServices
         Task<AuthenticationTokenDto> GetBearerTokenAsync(User user);
 
         string GetUserIdFromToken();
+
+        TokenInfoDto GetUserInfoFromToken();
     }
 }

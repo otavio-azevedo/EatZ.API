@@ -35,9 +35,7 @@ namespace EatZ.Domain.Commands.Orders.Update
                 return;
             }
 
-            if (request.Status == EOrderStatus.Confirmed)
-                order.SetConfirmationDate();
-            else if (request.Status == EOrderStatus.PickedUp)
+            if (request.Status == EOrderStatus.PickedUp)
                 order.SetPickUpDate();
             else
             {
