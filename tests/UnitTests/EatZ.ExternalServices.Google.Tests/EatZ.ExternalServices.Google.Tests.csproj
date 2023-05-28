@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\EatZ.ExternalServices.Google\EatZ.ExternalServices.Google.csproj" />
+	  <ProjectReference Include="..\..\..\src\EatZ.ExternalServices.Google\EatZ.ExternalServices.Google.csproj" />
 	</ItemGroup>
 
 </Project>
