@@ -1,6 +1,7 @@
 ﻿using EatZ.API.Models.Orders;
 using EatZ.API.Models.Orders.Reponses;
 using EatZ.Domain.Commands.Orders.Create;
+using EatZ.Domain.Commands.Orders.Delete;
 using EatZ.Domain.Commands.Orders.List;
 using EatZ.Domain.Commands.Orders.Update;
 using EatZ.Infra.CrossCutting.Constants;
@@ -52,6 +53,15 @@ namespace EatZ.API.Controllers
             var mappedResult = OrdersMappers.Map(result);
             
             return Ok(mappedResult);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(NotificationModel), (int)HttpStatusCode.UnprocessableEntity)]
+        public async Task<IActionResult> DeleteOrderAsync(long id)
+        {
+            await _mediator.Send(new DeleteOrderCommand(id));
+            return Ok();
         }
     }
 }

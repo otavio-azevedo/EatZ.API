@@ -12,5 +12,7 @@ namespace EatZ.Domain.Interfaces.Repositories
         Task<IEnumerable<Order>> ListOrdersByUserIdAsync(string userId);
 
         Task<IEnumerable<Order>> ListOrdersByAdminIdAsync(string adminId);
+        
+        void RemoveOrder(Order order);
     }
 }

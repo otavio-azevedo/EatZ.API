@@ -8,5 +8,9 @@ namespace EatZ.Domain.Interfaces.Repositories
         Task InsertReviewAsync(Review review);
 
         IEnumerable<StoreAverageReviewDto> GetAverageStoreRatingByCity(long cityId);
+
+        Task<Review> GetReviewByIdAsync(string id);
+
+        void RemoveReview(Review review);
     }
 }

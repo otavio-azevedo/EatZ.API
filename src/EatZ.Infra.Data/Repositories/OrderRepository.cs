@@ -44,5 +44,10 @@ namespace EatZ.Infra.Data.Repositories
                                  .OrderByDescending(x => x.CreationDate)
                                  .ToListAsync();
         }
+
+        public void RemoveOrder(Order order)
+        {
+            _context.Orders.Remove(order);
+        }
     }
 }

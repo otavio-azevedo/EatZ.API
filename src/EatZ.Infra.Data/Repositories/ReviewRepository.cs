@@ -30,5 +30,15 @@ namespace EatZ.Infra.Data.Repositories
                                   .GroupBy(x => x.Order.StoreId)
                                   .Select(x => new StoreAverageReviewDto(x.Key, x.Average(x => x.Rating), x.Count()));
         }
+
+        public async Task<Review> GetReviewByIdAsync(string id)
+        {
+            return await _context.Reviews.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public void RemoveReview(Review review)
+        {
+            _context.Reviews.Remove(review);
+        }
     }
 }
