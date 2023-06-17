@@ -36,6 +36,7 @@ namespace EatZ.Infra.Data.Repositories
                                     .ThenInclude(x => x.City)
                                  .AsNoTracking()
                                  .Where(x => x.Store.City.Id == cityId)
+                                 .OrderByDescending(x => x.CreationDate)
                                  .ToListAsync();
         }
 

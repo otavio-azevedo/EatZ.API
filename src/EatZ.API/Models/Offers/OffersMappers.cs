@@ -14,7 +14,7 @@ namespace EatZ.API.Models.Offers
             return storeOffers.Select(x => new SearchOffersByCityResponse(
                     x.StoreId,
                     x.Store.Name,
-                    x.Store.AverageReview.AverageRating,
+                    Math.Round(x.Store.AverageReview.AverageRating,2),
                     x.Store.AverageReview.NumberOfReviews,
                     x.Store.LogoImage,
                     x.Id,
