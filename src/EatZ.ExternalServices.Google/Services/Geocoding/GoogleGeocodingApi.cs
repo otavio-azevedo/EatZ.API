@@ -25,6 +25,9 @@ namespace EatZ.ExternalServices.Google.Services.Geocoding
 
         public async Task<GetCoordinatesDto> GetCoordinatesAsync(string zipCode, string neighborhood, string street, int streetNumber)
         {
+            //TODO: It's necessary new api key
+            return new GetCoordinatesDto(-29.684768298947713, -51.12606835789034);
+
             StringBuilder fullAddress = new StringBuilder();
             fullAddress.AppendJoin(' ', zipCode, neighborhood, street, streetNumber);
 
